@@ -2,11 +2,11 @@
 
 #region #*----------Modules----------
 import argparse
-
+import os
 #endregion
 
 #region #*----------Constants----------
-A_TEST_SECRET = None
+A_TEST_SECRET = os.environ.get('A_TEST_SECRET')
 #endregion
 
 #region #*----------Methods----------
