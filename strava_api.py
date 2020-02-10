@@ -4,14 +4,13 @@ import json
 import os
 import urllib
 
-#? Payload to obtain latest access token - this is the dict contained in STRAVA_APP_CREDS:
-# {
-#     "client_id": REDACTED,
-#     "client_secret": REDACTED,
-#     "refresh_token": REDACTED,
-#     "grant_type": "refresh_token"
-# }
-STRAVA_APP_CREDS = os.environ.get('STRAVA_APP_CREDS')
+#? Payload to obtain latest access token
+STRAVA_APP_CREDS = {
+    'client_id': 'a',
+    'client_secret': 'b',
+    'refresh_token': 'c',
+    'grant_type': 'refresh_token'
+}
 
 class strava_requests():
     def __init__(self):
@@ -19,6 +18,7 @@ class strava_requests():
             self.connection = http.client.HTTPSConnection('www.strava.com:443')
             print(json.dumps(STRAVA_APP_CREDS, indent=4))
             refresh_query = "https://www.strava.com/oauth/token?{}".format(urllib.parse.urlencode(STRAVA_APP_CREDS))
+            print(refresh_query)
             self.connection.request(method="POST", url=refresh_query)
             r = self.connection.getresponse()
 
