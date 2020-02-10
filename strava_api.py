@@ -17,7 +17,7 @@ class strava_requests():
     def __init__(self):
         try:
             self.connection = http.client.HTTPSConnection('www.strava.com:443')
-            json.dumps(STRAVA_APP_CREDS, indent=4)
+            print(json.dumps(STRAVA_APP_CREDS, indent=4))
             refresh_query = "https://www.strava.com/oauth/token?{}".format(urllib.parse.urlencode(STRAVA_APP_CREDS))
             self.connection.request(method="POST", url=refresh_query)
             r = self.connection.getresponse()
