@@ -13,7 +13,7 @@ import strava_api
 def main(args):
     print("Initiating Workflow for Strava App...")
     strava_requests = strava_api.strava_requests()
-    athlete = strava_requests.get_athlete()
+    athlete = strava_requests.get_activity('3079381521')
     print(json.dumps(athlete, indent=4))
 #endregion
 

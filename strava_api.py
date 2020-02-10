@@ -30,18 +30,27 @@ class strava_requests():
                 raise Exception(str(r.read()))
         except Exception as e:
             print('Strava API failed to initialize! {}'.format(str(e)))
-        
+
+    def get_athlete(self):
+        return self.__get_query(self.__athlete_query())
+    
+    def get_activity(self, activity_id):
+        return self.__get_query(self.__activity_query(activity_id))
+
+    def __get_query(self, query):
+        print(query)
+        result = None      
+        self.connection.request(method="GET", url=query, headers=self.__authorization_header)
+        r = self.connection.getresponse()
+        result = json.loads(r.read())
+        return result
 
     def __get_authorization_header(self, token):
         '''creates the header dict for making Strava API calls'''
         return { "Authorization": "Bearer {}".format(token) }
 
-    def get_athlete(self):
-        result = None      
-        self.connection.request(method="GET", url=self.athlete_query(), headers=self.__authorization_header)
-        r = self.connection.getresponse()
-        result = json.loads(r.read())
-        return result
-    
-    def athlete_query(self):
+    def __athlete_query(self):
         return "/api/v3/athlete"
+
+    def __activity_query(self, activity_id):
+        return '/api/v3/activities/{}'.format(activity_id)
