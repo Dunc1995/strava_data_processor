@@ -3,22 +3,18 @@
 #region #*----------Modules----------
 import argparse
 import os
-#endregion
-
-#region #*----------Constants----------
-A_TEST_SECRET = os.environ.get('A_TEST_SECRET')
-#endregion
-
-#region #*----------Methods----------
-
+import json
+import strava_api
 #endregion
 
 #region #*----------Main Function----------
 #? Main application function.
 #? This is executed by default unless this script is imported as a module.
 def main(args):
-    print("Successful Workflow!")
-    print(str(A_TEST_SECRET))
+    print("Initiating Workflow for Strava App...")
+    strava_requests = strava_api.strava_requests()
+    athlete = strava_requests.get_athlete()
+    print(json.dumps(athlete, indent=4))
 #endregion
 
 #region #!----------Application Entry Point----------
