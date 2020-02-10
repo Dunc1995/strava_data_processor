@@ -31,4 +31,4 @@ jobs:
       run: |
         python main.py
       env:
-        A_TEST_SECRET: ${{ secrets.A_TEST_SECRET }}
+        STRAVA_APP_CREDS: ${{ secrets.STRAVA_APP_CREDS }}
