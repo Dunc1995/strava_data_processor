@@ -6,9 +6,9 @@ import urllib
 
 #? Payload to obtain latest access token
 STRAVA_APP_CREDS = {
-    'client_id': 'a',
-    'client_secret': 'b',
-    'refresh_token': 'c',
+    'client_id': os.environ.get('STRAVA_CLIENT_ID'),
+    'client_secret': os.environ.get('STRAVA_CLIENT_SECRET'),
+    'refresh_token': os.environ.get('STRAVA_REFRESH_TOKEN') ,
     'grant_type': 'refresh_token'
 }
 
@@ -16,7 +16,6 @@ class strava_requests():
     def __init__(self):
         try:
             self.connection = http.client.HTTPSConnection('www.strava.com:443')
-            print(json.dumps(STRAVA_APP_CREDS, indent=4))
             refresh_query = "https://www.strava.com/oauth/token?{}".format(urllib.parse.urlencode(STRAVA_APP_CREDS))
             print(refresh_query)
             self.connection.request(method="POST", url=refresh_query)
@@ -39,7 +38,7 @@ class strava_requests():
 
     def get_athlete(self):
         result = None      
-        self.connection.request(method="GET", url=self.athlete_query, headers=self.__authorization_header)
+        self.connection.request(method="GET", url=self.athlete_query(), headers=self.__authorization_header)
         r = self.connection.getresponse()
         result = json.loads(r.read())
         return result
