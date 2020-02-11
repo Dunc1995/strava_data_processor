@@ -1,6 +1,7 @@
 from __future__ import print_function
 import pickle
 import os.path
+import os
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -8,6 +9,7 @@ import json
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive.file']
+HOME = os.environ.get('HOME')
 
 def main():
     """Shows basic usage of the Drive v3 API.
@@ -17,8 +19,8 @@ def main():
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('./secrets/token.pickle'):
-        with open('./secrets/token.pickle', 'rb') as token:
+    if os.path.exists('{}/secrets/token.pickle'.format(HOME)):
+        with open('{}/secrets/token.pickle'.format(HOME), 'rb') as token:
             creds = pickle.load(token)
 
     # If there are no (valid) credentials available, let the user log in.
