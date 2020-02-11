@@ -54,3 +54,16 @@ class strava_requests():
 
     def __activity_query(self, activity_id):
         return '/api/v3/activities/{}'.format(activity_id)
+
+def fetch_activity_splits(activity_json):
+    '''takes the raw json from the Strava activities query and returns only the splits array plus some metadata.'''
+    
+    splits={ 
+    "name": activity_json["name"], 
+    "start_date": activity_json["start_date"], 
+    "start_date_local": activity_json["start_date_local"], 
+    "timezone": activity_json["timezone"], 
+    "utc_offset": activity_json["utc_offset"], 
+    "splits_metric": activity_json["splits_metric"] }
+
+    return splits

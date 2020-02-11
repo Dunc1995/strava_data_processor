@@ -1,1 +1,2 @@
 requests==2.22.0
+pygdrive3==0.6.0

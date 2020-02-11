@@ -1,35 +1,35 @@
 #!/usr/bin/env python
 
 #region #*----------Modules----------
-import argparse
 import os
 import json
 import strava_api
+from pygdrive3 import service
 #endregion
 
 #region #*----------Main Function----------
 #? Main application function.
 #? This is executed by default unless this script is imported as a module.
-def main(args):
+def main():
     print("Initiating Workflow for Strava App...")
     strava_requests = strava_api.strava_requests()
     result = strava_requests.get_activity('3079381521')
+    splits = strava_api.fetch_activity_splits(result)
 
-    splits={ 
-    "name": result["name"], 
-    "start_date": result["start_date"], 
-    "start_date_local": result["start_date_local"], 
-    "timezone": result["timezone"], 
-    "utc_offset": result["utc_offset"], 
-    "splits_metric": result["splits_metric"] }
+    drive_service = service.DriveService(os.environ.get('GOOGLE_DRIVE_SECRET') )
+    drive_service.auth()
 
-    print(json.dumps(splits, indent=4))
+    folder = drive_service.create_folder('Strava_Data_App')
+    file = drive_service.upload_file('Testing.json', './hello_world.json', folder)
+    link = drive_service.anyone_permission(file)
+
+    folders = drive_service.list_folders_by_name('Strava_Data_App')
+    files = drive_service.list_files_by_name('Testing')
+
+    files_from_folder = drive_service.list_files_from_folder_id(folder)
 #endregion
 
 #region #!----------Application Entry Point----------
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='template')
-    parser.add_argument('--example', '-e', help='This is an example argument')
-    args = parser.parse_args()
-    main(args)
+    main()
 #endregion
