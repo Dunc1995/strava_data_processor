@@ -14,11 +14,12 @@ jobs:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
-        python-version: ${{ matrix.python-version }}
-    - name: Make Executable
-      run: chmod +x ./.github/scripts/decrypt_secret.sh
+        python-version: ${{ matrix.python-version }} 
     - name: Decrypt large secret
-      run: ./.github/scripts/decrypt_secret.sh
+      run: |
+        chmod +x ./.github/scripts/decrypt_secret.sh
+        ./.github/scripts/decrypt_secret.sh
+        ls -l
       env:
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
     - name: Install dependencies
