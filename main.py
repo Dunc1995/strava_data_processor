@@ -12,9 +12,9 @@ from pygdrive3 import service
 #? This is executed by default unless this script is imported as a module.
 def main():
     print("Initiating Workflow for Strava App...")
-    strava_requests = strava_api.strava_requests()
-    result = strava_requests.get_activity('3079381521')
-    splits = strava_api.fetch_activity_splits(result)
+    # strava_requests = strava_api.strava_requests()
+    # result = strava_requests.get_activity('3079381521')
+    # splits = strava_api.fetch_activity_splits(result)
 
     drive_service = service.DriveService(os.environ.get('GOOGLE_DRIVE_SECRET') )
     drive_service.auth()
