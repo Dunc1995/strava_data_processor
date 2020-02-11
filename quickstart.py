@@ -42,6 +42,7 @@ def main():
 
     if not items:
         print('No files found.')
+        print('But authorized!')
     else:
         print('Files:')
         for item in items:
