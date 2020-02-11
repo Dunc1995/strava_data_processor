@@ -15,6 +15,10 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Decrypt large secret
+      run: ./.github/scripts/decrypt_secret.sh
+      env:
+        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -28,7 +32,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Execute Main Script
       run: |
-        python main.py
+        python quickstart.py
       env:
         STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
         STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
