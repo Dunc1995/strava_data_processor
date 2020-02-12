@@ -50,7 +50,7 @@ def main():
         'name': 'hello_world.jpg',
         'parents': folder.get('id')
         }
-    media = MediaFileUpload('hello_world.jpg',
+    media = MediaFileUpload('./hello_world.json',
                             mimetype='application/json')
     file = drive_service.files().create(body=file_metadata,
                                         media_body=media,
