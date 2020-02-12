@@ -31,3 +31,17 @@ class client():
                                             media_body=media,
                                             fields='id').execute()
         print('File ID: %s' % file.get('id'))
+
+    def list_folders(self):
+        page_token = None
+        while True:
+            response = self.__service.files().list(q="name='Strava*', mimeType='application/vnd.google-apps.folder'",
+                                                spaces='drive',
+                                                fields='nextPageToken, files(id, name)',
+                                                pageToken=page_token).execute()
+            for file in response.get('files', []):
+                # Process change
+                print('Found file: %s (%s)' % (file.get('name'), file.get('id')))
+            page_token = response.get('nextPageToken', None)
+            if page_token is None:
+                break
