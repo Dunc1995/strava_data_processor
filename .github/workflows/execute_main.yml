@@ -36,9 +36,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Execute Main Script
       run: |
-        python quickstart.py
+        python main.py
       env:
         STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
         STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
         STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
-        GOOGLE_DRIVE_SECRET: ${{ secrets.GOOGLE_DRIVE_SECRET }}
