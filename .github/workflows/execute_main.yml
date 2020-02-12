@@ -19,8 +19,6 @@ jobs:
       run: |
         chmod +x ./.github/scripts/decrypt_secret.sh
         ./.github/scripts/decrypt_secret.sh
-        ls -l
-        echo $HOME
       env:
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
     - name: Install dependencies

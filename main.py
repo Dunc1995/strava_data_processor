@@ -36,7 +36,7 @@ def main():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
 
-    drive_service = service.build('drive', 'v3', credentials=creds)
+    drive_service = build('drive', 'v3', credentials=creds)
 
     folder = drive_service.create_folder('Strava_Data_App')
     file = drive_service.upload_file('Testing.json', './hello_world.json', folder)
