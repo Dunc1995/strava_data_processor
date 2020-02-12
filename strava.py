@@ -12,7 +12,7 @@ STRAVA_APP_CREDS = {
     'grant_type': 'refresh_token'
 }
 
-class strava_requests():
+class client():
     def __init__(self):
         try:
             self.connection = http.client.HTTPSConnection('www.strava.com:443')
