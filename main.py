@@ -19,9 +19,13 @@ HOME = os.environ.get('HOME')
 #? This is executed by default unless this script is imported as a module.
 def main():
     print("Initiating Workflow for Strava App...")
-    # strava_requests = strava_api.strava_requests()
-    # result = strava_requests.get_activity('3079381521')
-    # splits = strava_api.fetch_activity_splits(result)
+    strava_requests = strava_api.strava_requests()
+    result = strava_requests.get_activity('3079381521')
+    splits = strava_api.fetch_activity_splits(result)
+
+    with open("activity_3079381521.json", "w") as f:
+        f.write(json.dumps(splits, indent=4))
+        f.close()
 
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -39,10 +43,10 @@ def main():
     drive_service = build('drive', 'v3', credentials=creds)
 
     file_metadata = {
-        'name': 'hello_world.json',
+        'name': 'activity_3079381521.json',
         'parents': ['19fS1Z3K8E61OOqLkDpSh6siPpZ1PRgCk']
         }
-    media = MediaFileUpload('./hello_world.json',
+    media = MediaFileUpload('./activity_3079381521.json',
                             mimetype='application/json')
     file = drive_service.files().create(body=file_metadata,
                                         media_body=media,
