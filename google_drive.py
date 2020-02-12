@@ -35,7 +35,7 @@ class client():
     def list_folders(self):
         page_token = None
         while True:
-            response = self.__service.files().list(q="name='Strava', mimeType='application/vnd.google-apps.folder'",
+            response = self.__service.files().list(q="mimeType='application/vnd.google-apps.folder'",
                                                 spaces='drive',
                                                 fields='nextPageToken, files(id, name)',
                                                 pageToken=page_token).execute()
