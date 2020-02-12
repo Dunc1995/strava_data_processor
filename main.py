@@ -38,17 +38,9 @@ def main():
 
     drive_service = build('drive', 'v3', credentials=creds)
 
-    folder_metadata = {
-        'name': 'Strava_Data_App',
-        'mimeType': 'application/vnd.google-apps.folder'
-    }
-    folder = drive_service.files().create(body=folder_metadata,
-                                        fields='id').execute()
-    print('Folder ID: %s' % folder.get('id'))
-
     file_metadata = {
-        'name': 'hello_world.jpg',
-        'parents': folder.get('id')
+        'name': 'hello_world.json',
+        'parents': '19fS1Z3K8E61OOqLkDpSh6siPpZ1PRgCk'
         }
     media = MediaFileUpload('./hello_world.json',
                             mimetype='application/json')
