@@ -40,7 +40,7 @@ def main():
 
     file_metadata = {
         'name': 'hello_world.json',
-        'parents': '19fS1Z3K8E61OOqLkDpSh6siPpZ1PRgCk'
+        'parents': ['19fS1Z3K8E61OOqLkDpSh6siPpZ1PRgCk']
         }
     media = MediaFileUpload('./hello_world.json',
                             mimetype='application/json')
