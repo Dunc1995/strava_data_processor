@@ -6,9 +6,9 @@ import os.path
 import json
 import strava_api
 from pygdrive3 import service
-from googleapiclient.discovery import build
+from googleapiclient.discovery import build, MediaFileUpload
 from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request, MediaFileUpload
+from google.auth.transport.requests import Request
 import pickle
 #endregion
 
