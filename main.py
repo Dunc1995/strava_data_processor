@@ -8,7 +8,7 @@ import strava_api
 from pygdrive3 import service
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+from google.auth.transport.requests import Request, MediaFileUpload
 import pickle
 #endregion
 
@@ -38,14 +38,24 @@ def main():
 
     drive_service = build('drive', 'v3', credentials=creds)
 
-    folder = drive_service.create_folder('Strava_Data_App')
-    file = drive_service.upload_file('Testing.json', './hello_world.json', folder)
-    link = drive_service.anyone_permission(file)
+    folder_metadata = {
+        'name': 'Strava_Data_App',
+        'mimeType': 'application/vnd.google-apps.folder'
+    }
+    folder = drive_service.files().create(body=folder_metadata,
+                                        fields='id').execute()
+    print('Folder ID: %s' % folder.get('id'))
 
-    folders = drive_service.list_folders_by_name('Strava_Data_App')
-    files = drive_service.list_files_by_name('Testing')
-
-    files_from_folder = drive_service.list_files_from_folder_id(folder)
+    file_metadata = {
+        'name': 'hello_world.jpg',
+        'parents': folder.get('id')
+        }
+    media = MediaFileUpload('hello_world.jpg',
+                            mimetype='application/json')
+    file = drive_service.files().create(body=file_metadata,
+                                        media_body=media,
+                                        fields='id').execute()
+    print('File ID: %s' % file.get('id'))
 #endregion
 
 #region #!----------Application Entry Point----------
