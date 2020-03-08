@@ -32,9 +32,11 @@ class client():
             print('Strava API failed to initialize! {}'.format(str(e)))
 
     def get_athlete(self):
+        '''Returns a dict containing Athlete data.'''
         return self.__get_query(self.__athlete_query())
     
     def get_activity(self, activity_id):
+        '''Returns a dict containing activity data from a given id.'''
         return self.__get_query(self.__activity_query(activity_id))
 
     def __get_query(self, query):
